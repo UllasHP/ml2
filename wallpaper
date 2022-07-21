@@ -1,0 +1,66 @@
+package com.example.sgwallpaper
+
+import android.app.WallpaperManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity(){
+    var myWallpaperList = arrayOf(R.drawable.wallpaper4,R.drawable.wallpaper3,R.drawable.wallpaper1,R.drawable.wallpaper5,R.drawable.wallpaper2)
+    override fun onCreate(savedInstancestate:Bundle?){
+        super.onCreate(savedInstancestate)
+        setContentView(R.layout.activity_main)
+        wpbtn.setOnClickListener{setWallpaper()}
+    }
+    private fun setWallpaper(){
+        Toast.makeText(this,"Setting Wallpaper please wait.",Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed({
+            for(i in this.myWallpaperList){
+                val pic:Bitmap=BitmapFactory.decodeResource(resources,i)
+                val wM=WallpaperManager.getInstance(baseContext)
+                wM.setBitmap(pic)
+            }
+        },2000)
+    }
+}
+----------------------------------------------------------------------------------------
+xml file
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/head"
+        android:layout_width="237dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Wallpaper Changer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.137" />
+
+    <Button
+        android:id="@+id/WPBtn"
+        android:layout_width="193dp"
+        android:layout_height="73dp"
+        android:text="Click Here!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.453" />
+</android.support.constraint.ConstraintLayout>
